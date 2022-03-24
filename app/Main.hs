@@ -14,10 +14,10 @@ data Params = Params { include :: String
 -- Merge
 run :: Params -> IO ()
 run params = do
-  fileEntries <- parseFile (include params)
+  includeFile <- parseFile (include params)
 
-  let n4 = fst fileEntries
-      n6 = snd fileEntries
+  let n4 = fst includeFile
+      n6 = snd includeFile
 
   mapM_ T.putStrLn $ Prelude.map encode4 $ aggregate4 n4
   mapM_ T.putStrLn $ Prelude.map encode6 $ aggregate6 n6
