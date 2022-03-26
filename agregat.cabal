@@ -21,7 +21,8 @@ extra-source-files: CHANGELOG.md
 library
     ghc-options: -Wall -Werror -O2
     exposed-modules: Agregat
-    other-modules: Agregat.V4
+    other-modules: Agregat.IPRange
+                   Agregat.V4
                    Agregat.V6
     hs-source-dirs: lib
     build-depends: attoparsec
