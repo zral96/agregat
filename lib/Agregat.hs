@@ -9,6 +9,9 @@ module Agregat
 
   , encode4
   , encode6
+
+  , filter4
+  , filter6
   ) where
 
 import Agregat.V4 as V4

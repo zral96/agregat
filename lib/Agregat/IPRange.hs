@@ -57,18 +57,17 @@ class Ord a => IPRange a where
   aggregate :: [a] -> [a]
   aggregate s = concatMap merge (groupAdjacent $ collapseSubsets $ sortByPrefix s)
 
-  -- !! filterRange funktioniert noch nicht richtig. !!
+  -- Apply a list of filters to a list of Ranges
   filterRange :: [a] -> [a] -> [a]
-  filterRange _ [] = []
-  filterRange [] ranges = ranges
   filterRange filters ranges = go filters ranges []
     where
       go [] ranges' done = concat [done,ranges']
       go _  []      done = done
       go filters'@(f:fs) ranges'@(r:rs) done
-        | f `isSubset` r = go filters' (sortByPrefix $ concat [dropRange f r, rs]) done
-        | f > r  = go filters' rs (r:done)
+        | f `isSubset` r = go filters' rs $ concat [dropRange f r, done]
+        | r `isSubset` f = go filters' rs done
         | f == r = go filters' rs done
+        | f > r  = go filters' rs (r:done)
         | otherwise = go fs ranges' done
 
   -- Removes a range from a range and returns all remaining parts

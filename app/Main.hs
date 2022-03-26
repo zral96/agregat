@@ -19,8 +19,15 @@ run params = do
   let n4 = fst includeFile
       n6 = snd includeFile
 
-  mapM_ T.putStrLn $ Prelude.map encode4 $ aggregate4 n4
-  mapM_ T.putStrLn $ Prelude.map encode6 $ aggregate6 n6
+  case exclude params of
+    Just excl -> do
+      el <- parseFile excl
+      let f4 = aggregate4 $ fst el
+          result = filter4 f4 $ aggregate4 n4
+      mapM_ T.putStrLn $ Prelude.map encode4 result
+    Nothing -> do
+      mapM_ T.putStrLn $ Prelude.map encode4 $ aggregate4 n4
+      mapM_ T.putStrLn $ Prelude.map encode6 $ aggregate6 n6
 
 
 mkParams :: Opt.Parser Params

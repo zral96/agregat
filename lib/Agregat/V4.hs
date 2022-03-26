@@ -1,8 +1,9 @@
 module Agregat.V4
   ( IPv4Range (..)
-  , v4Range
   , aggregate4
   , encode4
+  , filter4
+  , v4Range
   ) where
 
 
@@ -14,13 +15,15 @@ import Net.IPv4
 import Agregat.IPRange
 
 
+-- Re-export aggregate with a type-annotation
 aggregate4 :: [IPv4Range] -> [IPv4Range]
 aggregate4 = aggregate
 
-{-
+
+-- Re-export filterRange with a type-annotation
 filter4 :: [IPv4Range] -> [IPv4Range] -> [IPv4Range]
 filter4 = filterRange
--}
+
 
 -- A modified version of the IPv4Range parser. If an IPv4 address is
 -- encountered, the parser will emerge a /32 range from it.

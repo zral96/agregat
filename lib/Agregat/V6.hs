@@ -1,8 +1,9 @@
 module Agregat.V6
   ( IPv6Range (..)
-  , v6Range
   , aggregate6
   , encode6
+  , filter6
+  , v6Range
   ) where
 
 
@@ -14,8 +15,14 @@ import Net.IPv6
 import Agregat.IPRange
 
 
+-- Re-export aggregate with a type-annotation
 aggregate6 :: [IPv6Range] -> [IPv6Range]
 aggregate6 = aggregate
+
+
+-- Re-export filterRange with a type-annotation
+filter6 :: [IPv6Range] -> [IPv6Range] -> [IPv6Range]
+filter6 = filterRange
 
 
 -- A modified version of the IPv6Range parser. If an IPv6 address is
