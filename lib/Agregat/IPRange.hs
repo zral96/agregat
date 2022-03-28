@@ -92,15 +92,11 @@ instance IPRange IPv4Range where
   size a  = fromEnum $ ipv4RangeLength a
 
   largestBlock start stop
-    | lowB > highE = start
-    | lowB < highE && (highB < highE) && (lowB == lowN) =
-      if highN > highE then start else largestBlock next stop
+    | lowerI start > upperI stop = start
+    | lowerI start < upperI stop && (upperI start < upperI stop) && (lowerI start == lowerI next) =
+      if upperI next > upperI stop then start else largestBlock next stop
     | otherwise = start
-    where
-      (lowB, highB)  = (V4.lowerInclusive start, V4.upperInclusive start)
-      (_lowE, highE) = (V4.lowerInclusive stop,  V4.upperInclusive stop)
-      (lowN, highN)  = (V4.lowerInclusive next,  V4.upperInclusive next)
-      next = IPv4Range (ipv4RangeBase start) (ipv4RangeLength start - 1)
+    where next = IPv4Range (ipv4RangeBase start) (ipv4RangeLength start - 1)
 
   explodeRange size' range' = go (toEnum size') range' (ipv4RangeBase range') []
     where
@@ -122,15 +118,11 @@ instance IPRange IPv6Range where
   size a  = fromEnum $ ipv6RangeLength a
 
   largestBlock start stop
-    | lowB > highE = start
-    | lowB < highE && (highB < highE) && (lowB == lowN) =
-      if highN > highE then start else largestBlock next stop
+    | lowerI start > upperI stop = start
+    | lowerI start < upperI stop && (upperI start < upperI stop) && (lowerI start == lowerI next) =
+      if upperI next > upperI stop then start else largestBlock next stop
     | otherwise = start
-    where
-      (lowB, highB)  = (V6.lowerInclusive start, V6.upperInclusive start)
-      (_lowE, highE) = (V6.lowerInclusive stop,  V6.upperInclusive stop)
-      (lowN, highN)  = (V6.lowerInclusive next,  V6.upperInclusive next)
-      next = IPv6Range (ipv6RangeBase start) (ipv6RangeLength start - 1)
+    where next = IPv6Range (ipv6RangeBase start) (ipv6RangeLength start - 1)
 
   explodeRange size' range' = go (toEnum size') range' (ipv6RangeBase range') []
     where
