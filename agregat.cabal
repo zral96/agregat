@@ -21,9 +21,9 @@ extra-source-files: CHANGELOG.md
 library
     ghc-options: -Wall -Werror -O2
     exposed-modules: Agregat
-    other-modules: Agregat.IPRange
-                   Agregat.V4
-                   Agregat.V6
+                   , Agregat.IPRange
+                   , Agregat.V4
+                   , Agregat.V6
     hs-source-dirs: lib
     build-depends: attoparsec
                  , base >= 4.13
@@ -43,6 +43,7 @@ test-suite agregat-test
                  , ip
                  , tasty >= 0.11 && <1.5
                  , tasty-hspec
+                 , text
                  , hspec
     default-language: Haskell2010
 
